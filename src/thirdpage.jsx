@@ -61,7 +61,7 @@ function ThirdPage() {
       >
         <video
           ref={videoRef}
-          src="/public/vedios/kusuma.mp4"
+          src="/public/videos/kusuma.mp4"
           style={{
             width: "100%",
             height: "100%",

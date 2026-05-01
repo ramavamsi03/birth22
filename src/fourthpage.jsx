@@ -61,7 +61,7 @@ function FourthPage() {
       >
         <video
           ref={videoRef}
-          src="/vedios/abdulla.MP4"
+          src="/videos/abdulla.MP4"
           style={{
             width: "100%",
             height: "100%",
