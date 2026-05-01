@@ -61,7 +61,7 @@ function SecondPage() {
       >
         <video
           ref={videoRef}
-          src="/public/vedios/sowmya.MP4"
+          src="/vedios/sowmya.MP4"
           style={{
             width: "100%",
             height: "100%",
