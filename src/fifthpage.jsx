@@ -61,7 +61,7 @@ function FifthPage() {
       >
         <video
           ref={videoRef}
-          src="/public/videos/abdulla.MP4"
+          src="/videos/abdulla.MP4"
           style={{
             width: "100%",
             height: "100%",
