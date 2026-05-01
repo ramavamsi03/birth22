@@ -109,8 +109,8 @@ function FloatingHearts() {
   );
 }
 
-/* ── Landscape Video ─────────────────────────────────── */
-function PortraitVideo({ accentColor }) {
+/* ── Portrait Video for Each Section ─────────────────── */
+function PortraitVideo({ accentColor, videoUrl }) {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
@@ -183,7 +183,7 @@ function PortraitVideo({ accentColor }) {
         >
           <video
             ref={videoRef}
-            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            src={videoUrl}
             style={{
               width: "100%",
               height: "100%",
@@ -276,6 +276,7 @@ const sections = [
     bow: "#f9a8d4",
     from: "Best Friend 💕",
     name: "Sarah",
+    video: "https://www.w3schools.com/html/mov_bbb.mp4",
   },
   {
     bg: "linear-gradient(160deg,#fff7f0 0%,#ffe4d4 100%)",
@@ -283,6 +284,7 @@ const sections = [
     bow: "#fdba74",
     from: "Bestie 🧡",
     name: "Priya",
+    video: "https://www.w3schools.com/html/movie.mp4",
   },
   {
     bg: "linear-gradient(160deg,#f0f7ff 0%,#dbeafe 100%)",
@@ -290,6 +292,7 @@ const sections = [
     bow: "#93c5fd",
     from: "Forever Friend 💙",
     name: "Meera",
+    video: "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
   },
   {
     bg: "linear-gradient(160deg,#f0fff7 0%,#dcfce7 100%)",
@@ -297,11 +300,30 @@ const sections = [
     bow: "#6ee7b7",
     from: "Ride or Die 💚",
     name: "Anjali",
+    video: "https://media.w3.org/2010/05/bunny/movie.mp4",
   },
 ];
 
 /* ── Main App ─────────────────────────────────────────── */
 export default function App() {
+  const [currentSection, setCurrentSection] = useState(0);
+
+  // Keyboard navigation support (optional improvement)
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowRight" || e.key === "PageDown") {
+        setCurrentSection((prev) => Math.min(prev + 1, sections.length - 1));
+      }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        setCurrentSection((prev) => Math.max(prev - 1, 0));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const s = sections[currentSection];
+
   return (
     <div style={{ position: "relative", minHeight: "100vh" }}>
       <style>{`
@@ -363,89 +385,142 @@ export default function App() {
         </p>
       </div>
 
-      {/* Sections */}
-      {sections.map((s, i) => (
-        <section
-          key={i}
+      {/* Single Section per Page */}
+      <section
+        key={currentSection}
+        style={{
+          minHeight: "100vh",
+          background: s.bg,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "60px 20px 40px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {/* from tag */}
+        <div
           style={{
-            minHeight: "100vh",
-            background: s.bg,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "60px 20px 40px",
-            position: "relative",
-            zIndex: 1,
-            borderTop: i > 0 ? "2px dashed #fecdd355" : "none",
+            background: "#fff",
+            border: `1.5px solid ${s.accent}44`,
+            borderRadius: 24,
+            padding: "5px 18px",
+            fontSize: 12,
+            fontFamily: "'Lato',sans-serif",
+            color: s.accent,
+            fontWeight: 700,
+            letterSpacing: 1,
+            marginBottom: 28,
+            boxShadow: `0 2px 12px ${s.accent}22`,
           }}
         >
-          {/* from tag */}
+          from {s.from}
+        </div>
+
+        {/* Portrait frame (now landscape video inside) */}
+        <PortraitVideo accentColor={s.accent} videoUrl={s.video} />
+
+        {/* Wish card */}
+        <div
+          style={{
+            marginTop: 32,
+            background: "#fff",
+            borderRadius: 20,
+            padding: "22px 24px",
+            maxWidth: 300,
+            border: `1.5px solid ${s.accent}33`,
+            boxShadow: `0 4px 24px ${s.accent}22`,
+            textAlign: "center",
+            position: "relative",
+          }}
+        >
+          {/* bow on card */}
           <div
             style={{
-              background: "#fff",
-              border: `1.5px solid ${s.accent}44`,
-              borderRadius: 24,
-              padding: "5px 18px",
-              fontSize: 12,
-              fontFamily: "'Lato',sans-serif",
+              position: "absolute",
+              top: -20,
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <Bow color={s.bow} size={44} />
+          </div>
+          <p
+            style={{
+              fontFamily: "'Dancing Script', cursive",
+              fontSize: 18,
               color: s.accent,
-              fontWeight: 700,
-              letterSpacing: 1,
-              marginBottom: 28,
-              boxShadow: `0 2px 12px ${s.accent}22`,
+              margin: "8px 0 10px",
             }}
           >
-            from {s.from}
+            ~ {s.name} says ~
+          </p>
+          {/* Removed message paragraph as per instructions */}
+          <div style={{ marginTop: 14, fontSize: 20 }}>
+            {"🌸 💖 🌸".split(" ").map((e, i) => (
+              <span key={i}>{e} </span>
+            ))}
           </div>
+        </div>
 
-          {/* Portrait frame (now landscape video inside) */}
-          <PortraitVideo accentColor={s.accent} />
-
-          {/* Wish card */}
-          <div
+        {/* Navigation buttons */}
+        <div
+          style={{
+            marginTop: 32,
+            display: "flex",
+            gap: 18,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <button
+            type="button"
+            disabled={currentSection === 0}
+            onClick={() => setCurrentSection((c) => Math.max(0, c - 1))}
             style={{
-              marginTop: 32,
+              padding: "8px 18px",
+              borderRadius: 999,
+              border: `1.5px solid ${s.accent}77`,
               background: "#fff",
-              borderRadius: 20,
-              padding: "22px 24px",
-              maxWidth: 300,
-              border: `1.5px solid ${s.accent}33`,
-              boxShadow: `0 4px 24px ${s.accent}22`,
-              textAlign: "center",
-              position: "relative",
+              color: s.accent,
+              fontWeight: 600,
+              fontSize: 15,
+              opacity: currentSection === 0 ? 0.5 : 1,
+              cursor: currentSection === 0 ? "not-allowed" : "pointer",
             }}
           >
-            {/* bow on card */}
-            <div
-              style={{
-                position: "absolute",
-                top: -20,
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            >
-              <Bow color={s.bow} size={44} />
-            </div>
-            <p
-              style={{
-                fontFamily: "'Dancing Script', cursive",
-                fontSize: 18,
-                color: s.accent,
-                margin: "8px 0 10px",
-              }}
-            >
-              ~ {s.name} says ~
-            </p>
-            {/* Removed message paragraph as per instructions */}
-            <div style={{ marginTop: 14, fontSize: 20 }}>
-              {"🌸 💖 🌸".split(" ").map((e, i) => (
-                <span key={i}>{e} </span>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
+            &lt; Prev
+          </button>
+          <span style={{ fontSize: 15, color: s.accent }}>
+            {currentSection + 1} / {sections.length}
+          </span>
+          <button
+            type="button"
+            disabled={currentSection === sections.length - 1}
+            onClick={() =>
+              setCurrentSection((c) => Math.min(sections.length - 1, c + 1))
+            }
+            style={{
+              padding: "8px 18px",
+              borderRadius: 999,
+              border: `1.5px solid ${s.accent}77`,
+              background: "#fff",
+              color: s.accent,
+              fontWeight: 600,
+              fontSize: 15,
+              opacity: currentSection === sections.length - 1 ? 0.5 : 1,
+              cursor:
+                currentSection === sections.length - 1
+                  ? "not-allowed"
+                  : "pointer",
+            }}
+          >
+            Next &gt;
+          </button>
+        </div>
+      </section>
 
       {/* Footer */}
       <div
