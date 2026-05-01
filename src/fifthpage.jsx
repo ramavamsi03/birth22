@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-function SecondPage() {
+function FifthPage() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
@@ -44,15 +44,15 @@ function SecondPage() {
           fontFamily: "'Satisfy', cursive",
         }}
       >
-        from Sowmya
+        from abdulla
       </div>
-      {/* The landscape frame is now solid white */}
+      {/* The portrait frame is now solid white and portrait aspect ratio */}
       <div
         style={{
           position: "relative",
-          width: 320, // Wider for landscape
-          aspectRatio: "16/9",
-          background: "#fff", // frame landscape white
+          width: 270, // Narrower for portrait
+          aspectRatio: "9/16",
+          background: "#fff", // frame portrait white
           borderRadius: 9,
           overflow: "hidden",
           boxShadow: "0 4px 24px rgba(0,0,0,0.18)",
@@ -61,7 +61,7 @@ function SecondPage() {
       >
         <video
           ref={videoRef}
-          src="/public/vedios/sowmya.MP4"
+          src="/public/vedios/abdulla.MP4"
           style={{
             width: "100%",
             height: "100%",
@@ -117,4 +117,4 @@ function SecondPage() {
   );
 }
 
-export default SecondPage;
+export default FifthPage;

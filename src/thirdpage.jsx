@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-function SecondPage() {
+function ThirdPage() {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
@@ -44,7 +44,7 @@ function SecondPage() {
           fontFamily: "'Satisfy', cursive",
         }}
       >
-        from Sowmya
+        from Kusuma
       </div>
       {/* The landscape frame is now solid white */}
       <div
@@ -61,7 +61,7 @@ function SecondPage() {
       >
         <video
           ref={videoRef}
-          src="/public/vedios/sowmya.MP4"
+          src="/public/vedios/kusuma.MP4"
           style={{
             width: "100%",
             height: "100%",
@@ -117,4 +117,4 @@ function SecondPage() {
   );
 }
 
-export default SecondPage;
+export default ThirdPage;

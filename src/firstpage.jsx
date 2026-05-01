@@ -5,18 +5,18 @@ function FirstPage() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    const audio = audioRef.current;
-    if (audio && audio.paused) {
-      audio.play().catch(() => {
-        // Autoplay might still be blocked by browser; cannot do anything else
-      });
-    }
-
-    return () => {
-      // Pause audio if component unmounts (leaving the page)
-      const audio = audioRef.current;
-      if (audio) audio.pause();
-    };
+    // Commenting out audio autoplay logic, since audio itself is commented out
+    // const audio = audioRef.current;
+    // if (audio && audio.paused) {
+    //   audio.play().catch(() => {
+    //     // Autoplay might still be blocked by browser; cannot do anything else
+    //   });
+    // }
+    // return () => {
+    //   // Pause audio if component unmounts (leaving the page)
+    //   const audio = audioRef.current;
+    //   if (audio) audio.pause();
+    // };
   }, []);
 
   return (
@@ -33,6 +33,7 @@ function FirstPage() {
       }}
     >
       {/* The audio element is rendered as early as possible */}
+      {/*
       <audio
         ref={audioRef}
         src="birthday.mp3"
@@ -46,6 +47,7 @@ function FirstPage() {
           visibility: "hidden",
         }}
       />
+      */}
 
       <div
         style={{
