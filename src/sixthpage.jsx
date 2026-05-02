@@ -44,7 +44,7 @@ function SixthPage() {
           fontFamily: "'Satisfy', cursive",
         }}
       >
-        from Sowmya
+        from Vamsi Hero😅
       </div>
       {/* The landscape frame is now solid white */}
       <div
