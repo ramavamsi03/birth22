@@ -61,7 +61,7 @@ function SixthPage() {
       >
         <video
           ref={videoRef}
-          src="/videos/sowmya.MP4"
+          src="/videos/vamsi.mp4"
           style={{
             width: "100%",
             height: "100%",
