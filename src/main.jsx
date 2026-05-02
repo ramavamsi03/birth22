@@ -9,6 +9,7 @@ import ThirdPage from "./thirdpage.jsx";
 import FourthPage from "./fourthpage.jsx";
 import FifthPage from "./fifthpage.jsx";
 import SixthPage from "./sixthpage.jsx";
+import SeventhPage from "./seventh.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
     <ThirdPage />
     <FourthPage />
     <FifthPage />
+    <SeventhPage />
     <SixthPage />
   </StrictMode>,
 );
